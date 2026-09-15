@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cidade</title>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #444;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+
+    .botoes {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .btn-salvar {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-limpar {
+        background: #6c757d;
+        color: white;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background: #007bff;
+        color: white;
+    }
+
+    .excluir {
+        background: #dc3545;
+        color: white;
+        padding: 6px 10px;
+    }
+
+    #mensagem {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    .sucesso {
+        color: #198754;
+    }
+
+    .erro {
+        color: #dc3545;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Cadastro de Cidade</h1>
+
+    <form id="formCidade">
+
+        <div class="form-group">
+            <label for="nome">Nome da cidade</label>
+            <input 
+                type="text" 
+                id="nome" 
+                placeholder="Digite o nome da cidade"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Estado</label>
+            <select id="estado">
+                <option value="">Selecione o estado</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cep">CEP</label>
+            <input 
+                type="text" 
+                id="cep" 
+                placeholder="00000-000"
+                maxlength="9"
+            >
+        </div>
+
+        <div class="botoes">
+            <button type="submit" class="btn-salvar">
+                Salvar
+            </button>
+
+            <button type="button" class="btn-limpar" onclick="limparFormulario()">
+                Limpar
+            </button>
+        </div>
+
+        <div id="mensagem"></div>
+
+    </form>
+
+    <h2>Cidades cadastradas</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>CEP</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody id="listaCidades">
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+
+    const form = document.getElementById("formCidade");
+    const lista = document.getElementById("listaCidades");
+    const mensagem = document.getElementById("mensagem");
+
+    let cidades = [];
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const nome = document.getElementById("nome").value.trim();
+        const estado = document.getElementById("estado").value;
+        const cep = document.getElementById("cep").value.trim();
+
+        // Validação
+        if (nome === "") {
+            mostrarMensagem("Digite o nome da cidade.", "erro");
+            return;
+        }
+
+        if (estado === "") {
+            mostrarMensagem("Selecione o estado.", "erro");
+            return;
+        }
+
+        if (cep === "") {
+            mostrarMensagem("Digite o CEP.", "erro");
+            return;
+        }
+
+        // Validação do CEP
+        const cepValido = /^[0-9]{5}-?[0-9]{3}$/;
+
+        if (!cepValido.test(cep)) {
+            mostrarMensagem("Digite um CEP válido.", "erro");
+            return;
+        }
+
+        // Criar cidade
+        const cidade = {
+            nome: nome,
+            estado: estado,
+            cep: cep
+        };
+
+        cidades.push(cidade);
+
+        atualizarTabela();
+
+        mostrarMensagem("Cidade cadastrada com sucesso!", "sucesso");
+
+        limparFormulario();
+
+    });
+
+
+    function atualizarTabela() {
+
+        lista.innerHTML = "";
+
+        cidades.forEach(function(cidade, index) {
+
+            const linha = document.createElement("tr");
+
+            linha.innerHTML = `
+                <td>${cidade.nome}</td>
+                <td>${cidade.estado}</td>
+                <td>${cidade.cep}</td>
+                <td>
+                    <button 
+                        class="excluir"
+                        onclick="excluirCidade(${index})">
+                        Excluir
+                    </button>
+                </td>
+            `;
+
+            lista.appendChild(linha);
+        });
+    }
+
+
+    function excluirCidade(index) {
+
+        cidades.splice(index, 1);
+
+        atualizarTabela();
+
+        mostrarMensagem("Cidade excluída.", "sucesso");
+    }
+
+
+    function limparFormulario() {
+
+        document.getElementById("nome").value = "";
+        document.getElementById("estado").value = "";
+        document.getElementById("cep").value = "";
+    }
+
+
+    function mostrarMensagem(texto, tipo) {
+
+        mensagem.textContent = texto;
+        mensagem.className = tipo;
+
+        setTimeout(function() {
+            mensagem.textContent = "";
+        }, 3000);
+    }
+
+
+    // Máscara do CEP
+    document.getElementById("cep").addEventListener("input", function(event) {
+
+        let valor = event.target.value.replace(/\D/g, "");
+
+        if (valor.length > 5) {
+            valor = valor.substring(0, 5) + "-" + valor.substring(5, 8);
+        }
+
+        event.target.value = valor;
+    });
+
+</script>
+
+</body>
+</html>

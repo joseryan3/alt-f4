@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emitir Relatório de Exames</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- CABEÇALHO -->
+
+        <div class="cabecalho">
+
+            <div class="logo">
+                🏥
+            </div>
+
+            <div>
+                <h1>Emitir Relatório de Exames</h1>
+                <p>Hospital Vida+</p>
+            </div>
+
+        </div>
+
+
+        <!-- FILTROS -->
+
+        <div class="card filtros">
+
+            <h2>Pesquisar Exames</h2>
+
+            <div class="linha">
+
+                <div class="campo">
+
+                    <label for="paciente">
+                        Nome do paciente
+                    </label>
+
+                    <input
+                        type="text"
+                        id="paciente"
+                        placeholder="Digite o nome do paciente"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="tipoExame">
+                        Tipo de exame
+                    </label>
+
+                    <select id="tipoExame">
+
+                        <option value="">
+                            Todos os exames
+                        </option>
+
+                        <option value="Hemograma">
+                            Hemograma
+                        </option>
+
+                        <option value="Raio-X">
+                            Raio-X
+                        </option>
+
+                        <option value="Ultrassonografia">
+                            Ultrassonografia
+                        </option>
+
+                        <option value="Tomografia">
+                            Tomografia
+                        </option>
+
+                        <option value="Ressonância Magnética">
+                            Ressonância Magnética
+                        </option>
+
+                        <option value="Eletrocardiograma">
+                            Eletrocardiograma
+                        </option>
+
+                        <option value="Exame de Urina">
+                            Exame de Urina
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="linha">
+
+                <div class="campo">
+
+                    <label for="dataInicial">
+                        Data inicial
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dataInicial"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="dataFinal">
+                        Data final
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dataFinal"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="botoes">
+
+                <button
+                    class="btn-pesquisar"
+                    onclick="filtrarExames()"
+                >
+                    🔎 Pesquisar
+                </button>
+
+
+                <button
+                    class="btn-limpar"
+                    onclick="limparFiltros()"
+                >
+                    Limpar
+                </button>
+
+
+                <button
+                    class="btn-imprimir"
+                    onclick="imprimirRelatorio()"
+                >
+                    🖨️ Emitir Relatório
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTADO -->
+
+        <div class="card" id="relatorio">
+
+            <div class="titulo-relatorio">
+
+                <div>
+
+                    <h2>Relatório de Exames</h2>
+
+                    <p id="dataRelatorio"></p>
+
+                </div>
+
+                <div class="hospital">
+                    🏥 Hospital Vida+
+                </div>
+
+            </div>
+
+
+            <div class="resumo">
+
+                <div>
+                    <strong id="totalExames">0</strong>
+                    <span>Exames encontrados</span>
+                </div>
+
+            </div>
+
+
+            <div class="tabela-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Paciente</th>
+                            <th>CPF</th>
+                            <th>Exame</th>
+                            <th>Data</th>
+                            <th>Médico</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="listaExames">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,290 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #f3f8fa;
+
+    color: #263238;
+
+    min-height: 100vh;
+}
+
+
+/* CONTAINER */
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+
+    margin: 40px auto;
+}
+
+
+/* CABEÇALHO */
+
+.cabecalho {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+
+    background-color: #087f8c;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.cabecalho h1 {
+    color: #087f8c;
+
+    font-size: 29px;
+}
+
+.cabecalho p {
+    color: #78909c;
+
+    margin-top: 5px;
+}
+
+
+/* CARD */
+
+.card {
+    background-color: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #087f8c;
+
+    margin-bottom: 25px;
+}
+
+
+/* FORMULÁRIO */
+
+.linha {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+
+    color: #455a64;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #cfd8dc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    border-color: #087f8c;
+}
+
+.campo textarea {
+    height: 100px;
+
+    resize: vertical;
+}
+
+
+/* BOTÃO */
+
+button {
+    background-color: #087f8c;
+
+    color: white;
+
+    border: none;
+
+    padding: 13px 25px;
+
+    border-radius: 7px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #05636d;
+}
+
+
+/* TABELA */
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 850px;
+}
+
+th {
+    background-color: #087f8c;
+
+    color: white;
+
+    padding: 13px;
+
+    text-align: left;
+}
+
+td {
+    padding: 13px;
+
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tr:hover {
+    background-color: #f5fafb;
+}
+
+
+/* STATUS */
+
+.status-concluido {
+    background-color: #e8f5e9;
+
+    color: #2e7d32;
+
+    padding: 6px 10px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.status-pendente {
+    background-color: #fff8e1;
+
+    color: #f57f17;
+
+    padding: 6px 10px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.status-analise {
+    background-color: #e3f2fd;
+
+    color: #1565c0;
+
+    padding: 6px 10px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* BOTÃO EXCLUIR */
+
+.btn-excluir {
+    background-color: #e53935;
+
+    padding: 8px 12px;
+
+    font-size: 13px;
+}
+
+.btn-excluir:hover {
+    background-color: #c62828;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 95%;
+
+        margin: 20px auto;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .linha {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .cabecalho h1 {
+        font-size: 23px;
+    }
+
+}
+

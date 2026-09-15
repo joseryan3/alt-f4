@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Grupo de Exames</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 35px;
+            color: #444;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-salvar {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-limpar {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-editar {
+            background: #ffc107;
+            color: #212529;
+            padding: 6px 10px;
+            margin-right: 5px;
+        }
+
+        .btn-excluir {
+            background: #dc3545;
+            color: white;
+            padding: 6px 10px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .pesquisa {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        #mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .sucesso {
+            color: #198754;
+        }
+
+        .erro {
+            color: #dc3545;
+        }
+
+        .status-ativo {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .status-inativo {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Cadastro de Grupo de Exames</h1>
+
+    <form id="formGrupoExame">
+
+        <div class="form-group">
+
+            <label for="nome">
+                Nome do Grupo
+            </label>
+
+            <input
+                type="text"
+                id="nome"
+                placeholder="Ex.: Exames Laboratoriais"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="descricao">
+                Descrição
+            </label>
+
+            <textarea
+                id="descricao"
+                placeholder="Digite uma descrição para o grupo de exames..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="status">
+                Status
+            </label>
+
+            <select id="status">
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option value="Ativo">
+                    Ativo
+                </option>
+
+                <option value="Inativo">
+                    Inativo
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="botoes">
+
+            <button
+                type="submit"
+                class="btn-salvar"
+                id="btnSalvar">
+
+                Salvar
+
+            </button>
+
+
+            <button
+                type="button"
+                class="btn-limpar"
+                onclick="limparFormulario()">
+
+                Limpar
+
+            </button>
+
+        </div>
+
+
+        <div id="mensagem"></div>
+
+    </form>
+
+
+    <h2>Grupos de Exames Cadastrados</h2>
+
+
+    <div class="pesquisa">
+
+        <input
+            type="text"
+            id="pesquisa"
+            placeholder="Pesquisar grupo de exames..."
+            oninput="pesquisarGrupos()"
+        >
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Nome</th>
+
+                <th>Descrição</th>
+
+                <th>Status</th>
+
+                <th>Ações</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="listaGrupos"></tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+    const form =
+        document.getElementById("formGrupoExame");
+
+    const lista =
+        document.getElementById("listaGrupos");
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+    const pesquisa =
+        document.getElementById("pesquisa");
+
+
+    let grupos = [];
+
+    let indiceEdicao = -1;
+
+
+    // ==========================================
+    // SALVAR / ATUALIZAR
+    // ==========================================
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const nome =
+            document.getElementById("nome")
+                .value
+                .trim();
+
+
+        const descricao =
+            document.getElementById("descricao")
+                .value
+                .trim();
+
+
+        const status =
+            document.getElementById("status")
+                .value;
+
+
+        // Validação do nome
+
+        if (nome === "") {
+
+            mostrarMensagem(
+                "Digite o nome do grupo de exames.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        // Validação do status
+
+        if (status === "") {
+
+            mostrarMensagem(
+                "Selecione o status do grupo.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        // Verifica duplicidade
+
+        const nomeDuplicado =
+            grupos.some(function(grupo, index) {
+
+                return (
+                    grupo.nome.toLowerCase() ===
+                    nome.toLowerCase()
+                    &&
+                    index !== indiceEdicao
+                );
+
+            });
+
+
+        if (nomeDuplicado) {
+
+            mostrarMensagem(
+                "Já existe um grupo com esse nome.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        const grupo = {
+
+            nome: nome,
+
+            descricao: descricao,
+
+            status: status
+
+        };
+
+
+        // ==========================================
+        // EDIÇÃO
+        // ==========================================
+
+        if (indiceEdicao >= 0) {
+
+            grupos[indiceEdicao] = grupo;
+
+            indiceEdicao = -1;
+
+            document.getElementById(
+                "btnSalvar"
+            ).textContent = "Salvar";
+
+
+            mostrarMensagem(
+                "Grupo de exames atualizado com sucesso!",
+                "sucesso"
+            );
+
+        }
+
+
+        // ==========================================
+        // NOVO CADASTRO
+        // ==========================================
+
+        else {
+
+            grupos.push(grupo);
+
+
+            mostrarMensagem(
+                "Grupo de exames cadastrado com sucesso!",
+                "sucesso"
+            );
+
+        }
+
+
+        atualizarTabela();
+
+        limparFormulario();
+
+    });
+
+
+    // ==========================================
+    // ATUALIZAR TABELA
+    // ==========================================
+
+    function atualizarTabela(
+        gruposExibir = grupos
+    ) {
+
+        lista.innerHTML = "";
+
+
+        gruposExibir.forEach(function(grupo) {
+
+            const index =
+                grupos.indexOf(grupo);
+
+
+            const linha =
+                document.createElement("tr");
+
+
+            const classeStatus =
+                grupo.status === "Ativo"
+                    ? "status-ativo"
+                    : "status-inativo";
+
+
+            linha.innerHTML = `
+
+                <td>
+                    ${grupo.nome}
+                </td>
+
+                <td>
+                    ${grupo.descricao || "-"}
+                </td>
+
+                <td class="${classeStatus}">
+                    ${grupo.status}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-editar"
+                        onclick="editarGrupo(${index})">
+
+                        Editar
+
+                    </button>
+
+
+                    <button
+                        class="btn-excluir"
+                        onclick="excluirGrupo(${index})">
+
+                        Excluir
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            lista.appendChild(linha);
+
+        });
+
+    }
+
+
+    // ==========================================
+    // EDITAR
+    // ==========================================
+
+    function editarGrupo(index) {
+
+        const grupo =
+            grupos[index];
+
+
+        document.getElementById("nome").value =
+            grupo.nome;
+
+
+        document.getElementById("descricao").value =
+            grupo.descricao;
+
+
+        document.getElementById("status").value =
+            grupo.status;
+
+
+        indiceEdicao = index;
+
+
+        document.getElementById(
+            "btnSalvar"
+        ).textContent = "Atualizar";
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+    // ==========================================
+    // EXCLUIR
+    // ==========================================
+
+    function excluirGrupo(index) {
+
+        const confirmacao =
+            confirm(
+                "Deseja realmente excluir este grupo de exames?"
+            );
+
+
+        if (!confirmacao) {
+            return;
+        }
+
+
+        grupos.splice(index, 1);
+
+
+        atualizarTabela();
+
+
+        mostrarMensagem(
+            "Grupo de exames excluído com sucesso.",
+            "sucesso"
+        );
+
+    }
+
+
+    // ==========================================
+    // LIMPAR
+    // ==========================================
+
+    function limparFormulario() {
+
+        document.getElementById("nome").value = "";
+
+        document.getElementById("descricao").value = "";
+
+        document.getElementById("status").value = "";
+
+
+        indiceEdicao = -1;
+
+
+        document.getElementById(
+            "btnSalvar"
+        ).textContent = "Salvar";
+
+    }
+
+
+    // ==========================================
+    // PESQUISAR
+    // ==========================================
+
+    function pesquisarGrupos() {
+
+        const texto =
+            pesquisa.value
+                .toLowerCase()
+                .trim();
+
+
+        const resultado =
+            grupos.filter(function(grupo) {
+
+                return (
+
+                    grupo.nome
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    grupo.descricao
+                        .toLowerCase()
+                        .includes(texto)
+
+                );
+
+            });
+
+
+        atualizarTabela(resultado);
+
+    }
+
+
+    // ==========================================
+    // MENSAGEM
+    // ==========================================
+
+    function mostrarMensagem(texto, tipo) {
+
+        mensagem.textContent = texto;
+
+        mensagem.className = tipo;
+
+
+        setTimeout(function() {
+
+            mensagem.textContent = "";
+
+        }, 3000);
+
+    }
+
+</script>
+
+</body>
+</html>

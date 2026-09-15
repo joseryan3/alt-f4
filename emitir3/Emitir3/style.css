@@ -1,0 +1,415 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #f3f8fa;
+
+    color: #263238;
+
+    min-height: 100vh;
+}
+
+
+/* CONTAINER */
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+
+    margin: 40px auto;
+}
+
+
+/* CABEÇALHO */
+
+.cabecalho {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+
+    background-color: #087f8c;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.cabecalho h1 {
+    color: #087f8c;
+
+    font-size: 29px;
+}
+
+.cabecalho p {
+    color: #78909c;
+
+    margin-top: 5px;
+}
+
+
+/* CARD */
+
+.card {
+    background-color: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #087f8c;
+
+    margin-bottom: 25px;
+}
+
+
+/* PESQUISA */
+
+.linha {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+.campo {
+    margin-bottom: 10px;
+}
+
+.campo label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+
+    color: #455a64;
+}
+
+.campo input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #cfd8dc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #087f8c;
+}
+
+
+/* BOTÕES */
+
+.botoes {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+button {
+    border: none;
+
+    padding: 13px 20px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-pesquisar {
+    background-color: #087f8c;
+
+    color: white;
+}
+
+.btn-pesquisar:hover {
+    background-color: #05636d;
+}
+
+.btn-limpar {
+    background-color: #eceff1;
+
+    color: #455a64;
+}
+
+.btn-limpar:hover {
+    background-color: #cfd8dc;
+}
+
+
+/* RESULTADO */
+
+.resultado {
+    padding: 40px;
+}
+
+.topo-resultado {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.topo-resultado h2 {
+    margin-bottom: 5px;
+}
+
+.topo-resultado p {
+    color: #78909c;
+}
+
+.hospital {
+    color: #087f8c;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+hr {
+    border: none;
+
+    border-top: 1px solid #e0e0e0;
+
+    margin-bottom: 30px;
+}
+
+
+/* TÍTULOS */
+
+.resultado h3 {
+    color: #087f8c;
+
+    font-size: 17px;
+
+    margin-top: 25px;
+
+    margin-bottom: 15px;
+}
+
+
+/* DADOS */
+
+.dados {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    background-color: #f8fafb;
+
+    padding: 18px;
+
+    border-radius: 8px;
+}
+
+.dados div {
+    padding: 5px;
+}
+
+.dados strong {
+    color: #455a64;
+}
+
+.dados span {
+    color: #263238;
+
+    margin-left: 5px;
+}
+
+
+/* RESULTADO DO EXAME */
+
+.resultado-texto {
+    background-color: #f8fafb;
+
+    border-left: 5px solid #087f8c;
+
+    padding: 20px;
+
+    min-height: 120px;
+
+    border-radius: 8px;
+
+    line-height: 1.6;
+}
+
+
+/* OBSERVAÇÕES */
+
+.observacoes {
+    background-color: #f8fafb;
+
+    min-height: 80px;
+
+    padding: 18px;
+
+    border-radius: 8px;
+
+    color: #455a64;
+
+    line-height: 1.5;
+}
+
+
+/* ASSINATURA */
+
+.assinatura {
+    width: 300px;
+
+    margin-top: 70px;
+
+    text-align: center;
+}
+
+.linha-assinatura {
+    border-top: 1px solid #263238;
+
+    margin-bottom: 8px;
+}
+
+.assinatura p {
+    color: #607d8b;
+
+    font-size: 14px;
+}
+
+
+/* IMPRIMIR */
+
+.area-impressao {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 40px;
+}
+
+.btn-imprimir {
+    background-color: #37474f;
+
+    color: white;
+}
+
+.btn-imprimir:hover {
+    background-color: #263238;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 95%;
+
+        margin: 20px auto;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .linha {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .dados {
+        grid-template-columns: 1fr;
+    }
+
+    .topo-resultado {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .cabecalho h1 {
+        font-size: 23px;
+    }
+
+}
+
+
+/* IMPRESSÃO */
+
+@media print {
+
+    body {
+        background-color: white;
+    }
+
+    .container {
+        width: 100%;
+
+        margin: 0;
+    }
+
+    .cabecalho,
+    .pesquisa,
+    .area-impressao {
+        display: none;
+    }
+
+    .resultado {
+        box-shadow: none;
+
+        border-radius: 0;
+
+        padding: 20px;
+    }
+
+    .hospital {
+        display: block;
+    }
+
+}
+

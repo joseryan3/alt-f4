@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emitir Pedido de Exame</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- CABEÇALHO -->
+
+        <div class="cabecalho">
+
+            <div class="logo">
+                🏥
+            </div>
+
+            <div>
+                <h1>Emitir Pedido de Exame</h1>
+                <p>Hospital Vida+</p>
+            </div>
+
+        </div>
+
+
+        <!-- PESQUISA -->
+
+        <div class="card pesquisa">
+
+            <h2>Pesquisar Pedido</h2>
+
+            <div class="linha">
+
+                <div class="campo">
+
+                    <label for="numeroPedido">
+                        Número do pedido
+                    </label>
+
+                    <input
+                        type="text"
+                        id="numeroPedido"
+                        placeholder="Ex: PED-001"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="paciente">
+                        Nome do paciente
+                    </label>
+
+                    <input
+                        type="text"
+                        id="paciente"
+                        placeholder="Digite o nome do paciente"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="botoes">
+
+                <button
+                    class="btn-pesquisar"
+                    onclick="pesquisarPedido()"
+                >
+                    🔎 Pesquisar
+                </button>
+
+
+                <button
+                    class="btn-limpar"
+                    onclick="limparPesquisa()"
+                >
+                    Limpar
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PEDIDO -->
+
+        <div class="card pedido" id="pedido">
+
+            <div class="topo-pedido">
+
+                <div>
+                    <h2>PEDIDO DE EXAME</h2>
+
+                    <p id="numeroExibido">
+                        Nº do pedido
+                    </p>
+                </div>
+
+                <div class="hospital">
+                    🏥 Hospital Vida+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- DADOS DO PACIENTE -->
+
+            <h3>Dados do Paciente</h3>
+
+            <div class="dados">
+
+                <div>
+                    <strong>Paciente:</strong>
+
+                    <span id="nomeExibido">
+                        -
+                    </span>
+                </div>
+
+
+                <div>
+                    <strong>CPF:</strong>
+
+                    <span id="cpfExibido">
+                        -
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- DADOS DO EXAME -->
+
+            <h3>Dados do Exame</h3>
+
+            <div class="dados">
+
+                <div>
+                    <strong>Exame solicitado:</strong>
+
+                    <span id="exameExibido">
+                        -
+                    </span>
+                </div>
+
+
+                <div>
+                    <strong>Data:</strong>
+
+                    <span id="dataExibida">
+                        -
+                    </span>
+                </div>
+
+
+                <div>
+                    <strong>Prioridade:</strong>
+
+                    <span id="prioridadeExibida">
+                        -
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- MÉDICO -->
+
+            <h3>Médico Solicitante</h3>
+
+            <div class="medico">
+
+                <p id="medicoExibido">
+                    -
+                </p>
+
+            </div>
+
+
+            <!-- OBSERVAÇÕES -->
+
+            <h3>Justificativa / Observações</h3>
+
+            <div class="observacoes">
+
+                <p id="observacoesExibidas">
+                    -
+                </p>
+
+            </div>
+
+
+            <!-- ASSINATURA -->
+
+            <div class="assinatura">
+
+                <div class="linha-assinatura"></div>
+
+                <p>Médico responsável</p>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <div class="area-impressao">
+
+                <button
+                    class="btn-imprimir"
+                    onclick="imprimirPedido()"
+                >
+                    🖨️ Emitir Pedido
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+

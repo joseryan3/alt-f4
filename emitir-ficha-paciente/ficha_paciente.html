@@ -1,0 +1,1300 @@
+<!--José chupador de rola, degustador de pinto, flautista de jebasnisstodonticas, degladiador de penis-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Emissão de Ficha do Paciente</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+        }
+
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+
+        h2 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+
+        h3 {
+            color: #555;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+            margin-top: 25px;
+        }
+
+
+        .linha {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .linha-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+
+        button {
+            border: none;
+            border-radius: 5px;
+            padding: 11px 20px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+
+        .btn-gerar {
+            background: #007bff;
+            color: white;
+        }
+
+
+        .btn-imprimir {
+            background: #198754;
+            color: white;
+        }
+
+
+        .btn-limpar {
+            background: #6c757d;
+            color: white;
+        }
+
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+
+        #mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+
+        .erro {
+            color: #dc3545;
+        }
+
+
+        .sucesso {
+            color: #198754;
+        }
+
+
+        /* ==========================
+           FICHA
+        ========================== */
+
+        #ficha {
+            display: none;
+        }
+
+
+        .ficha {
+            border: 1px solid #333;
+            padding: 30px;
+            background: white;
+        }
+
+
+        .cabecalho-ficha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+
+        .numero-ficha {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        .dados-paciente {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+
+        .campo-ficha {
+            border-bottom: 1px solid #aaa;
+            padding: 8px 0;
+        }
+
+
+        .campo-ficha strong {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+
+        .tipo-atendimento {
+            background: #f1f1f1;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        .assinatura {
+            margin-top: 70px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+
+        .linha-assinatura {
+            border-top: 1px solid #333;
+            padding-top: 8px;
+            text-align: center;
+        }
+
+
+        .rodape-ficha {
+            border-top: 1px solid #aaa;
+            margin-top: 30px;
+            padding-top: 10px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .card {
+                padding: 20px;
+            }
+
+
+            .linha,
+            .linha-3,
+            .dados-paciente {
+                grid-template-columns: 1fr;
+            }
+
+
+            .assinatura {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+        }
+
+
+        @media print {
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+
+            .nao-imprimir {
+                display: none !important;
+            }
+
+
+            #ficha {
+                display: block !important;
+            }
+
+
+            .ficha {
+                border: none;
+                box-shadow: none;
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================
+         FORMULÁRIO
+    ====================================== -->
+
+    <div class="card nao-imprimir">
+
+        <h1>
+            Emissão de Ficha do Paciente
+        </h1>
+
+
+        <form id="formFicha">
+
+
+            <!-- PACIENTE -->
+
+            <h3>
+                Dados do Atendimento
+            </h3>
+
+
+            <div class="linha-3">
+
+
+                <div class="form-group">
+
+                    <label for="paciente">
+                        Paciente
+                    </label>
+
+                    <select id="paciente">
+
+                        <option value="">
+                            Selecione o paciente
+                        </option>
+
+                        <option value="Maria da Silva"
+                                data-cpf="123.456.789-00"
+                                data-nascimento="15/05/1985"
+                                data-cidade="São Paulo - SP"
+                                data-convenio="Unimed">
+
+                            Maria da Silva
+
+                        </option>
+
+
+                        <option value="João Pereira"
+                                data-cpf="987.654.321-00"
+                                data-nascimento="20/10/1978"
+                                data-cidade="São Paulo - SP"
+                                data-convenio="Particular">
+
+                            João Pereira
+
+                        </option>
+
+
+                        <option value="Ana Souza"
+                                data-cpf="456.789.123-00"
+                                data-nascimento="03/02/1990"
+                                data-cidade="Campinas - SP"
+                                data-convenio="Bradesco Saúde">
+
+                            Ana Souza
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="data">
+                        Data
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hora">
+                        Horário
+                    </label>
+
+                    <input
+                        type="time"
+                        id="hora"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- MÉDICO / CONVÊNIO -->
+
+            <div class="linha">
+
+
+                <div class="form-group">
+
+                    <label for="medico">
+                        Médico
+                    </label>
+
+                    <select id="medico">
+
+                        <option value="">
+                            Selecione o médico
+                        </option>
+
+                        <option value="Dr. João da Silva - Cardiologia">
+                            Dr. João da Silva - Cardiologia
+                        </option>
+
+                        <option value="Dra. Maria Oliveira - Clínica Geral">
+                            Dra. Maria Oliveira - Clínica Geral
+                        </option>
+
+                        <option value="Dr. Carlos Souza - Ortopedia">
+                            Dr. Carlos Souza - Ortopedia
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="convenio">
+                        Convênio
+                    </label>
+
+                    <select id="convenio">
+
+                        <option value="">
+                            Particular
+                        </option>
+
+                        <option value="Unimed">
+                            Unimed
+                        </option>
+
+                        <option value="Bradesco Saúde">
+                            Bradesco Saúde
+                        </option>
+
+                        <option value="Amil">
+                            Amil
+                        </option>
+
+                        <option value="SulAmérica">
+                            SulAmérica
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- TIPO -->
+
+            <div class="linha-3">
+
+
+                <div class="form-group">
+
+                    <label for="tipoAtendimento">
+                        Tipo de Atendimento
+                    </label>
+
+                    <select id="tipoAtendimento">
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="Consulta">
+                            Consulta
+                        </option>
+
+                        <option value="Retorno">
+                            Retorno
+                        </option>
+
+                        <option value="Exame">
+                            Exame
+                        </option>
+
+                        <option value="Procedimento">
+                            Procedimento
+                        </option>
+
+                        <option value="Avaliação">
+                            Avaliação
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="prioridade">
+                        Prioridade
+                    </label>
+
+                    <select id="prioridade">
+
+                        <option value="Normal">
+                            Normal
+                        </option>
+
+                        <option value="Preferencial">
+                            Preferencial
+                        </option>
+
+                        <option value="Urgência">
+                            Urgência
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="senha">
+                        Senha / Ficha
+                    </label>
+
+                    <input
+                        type="text"
+                        id="senha"
+                        readonly
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- OBSERVAÇÃO -->
+
+            <div class="form-group">
+
+                <label for="observacao">
+                    Observação
+                </label>
+
+                <textarea
+                    id="observacao"
+                    placeholder="Observações do atendimento..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- BOTÕES -->
+
+            <div class="botoes">
+
+
+                <button
+                    type="submit"
+                    class="btn-gerar">
+
+                    Gerar Ficha
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-imprimir"
+                    onclick="imprimirFicha()">
+
+                    Imprimir Ficha
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-limpar"
+                    onclick="limparFormulario()">
+
+                    Limpar
+
+                </button>
+
+
+            </div>
+
+
+            <div id="mensagem"></div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- =====================================
+         FICHA GERADA
+    ====================================== -->
+
+    <div id="ficha">
+
+
+        <div class="ficha">
+
+
+            <div class="cabecalho-ficha">
+
+
+                <div>
+
+                    <div class="logo">
+                        CLÍNICA / LABORATÓRIO
+                    </div>
+
+                    <div>
+                        Ficha de Atendimento
+                    </div>
+
+                </div>
+
+
+                <div class="numero-ficha">
+
+                    Nº <span id="fichaNumero">
+                        000001
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- DADOS PACIENTE -->
+
+            <h3>
+                Dados do Paciente
+            </h3>
+
+
+            <div class="dados-paciente">
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        PACIENTE
+                    </strong>
+
+                    <span id="fichaPaciente"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        CPF
+                    </strong>
+
+                    <span id="fichaCPF"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        DATA DE NASCIMENTO
+                    </strong>
+
+                    <span id="fichaNascimento"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        CIDADE
+                    </strong>
+
+                    <span id="fichaCidade"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        CONVÊNIO
+                    </strong>
+
+                    <span id="fichaConvenio"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        DATA
+                    </strong>
+
+                    <span id="fichaData"></span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ATENDIMENTO -->
+
+            <h3>
+                Atendimento
+            </h3>
+
+
+            <div class="dados-paciente">
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        MÉDICO
+                    </strong>
+
+                    <span id="fichaMedico"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        HORÁRIO
+                    </strong>
+
+                    <span id="fichaHora"></span>
+
+                </div>
+
+
+                <div class="campo-ficha">
+
+                    <strong>
+                        PRIORIDADE
+                    </strong>
+
+                    <span id="fichaPrioridade"></span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="tipo-atendimento">
+
+                Tipo de Atendimento:
+
+                <span id="fichaTipo"></span>
+
+            </div>
+
+
+
+            <div class="campo-ficha">
+
+                <strong>
+                    OBSERVAÇÃO
+                </strong>
+
+                <span id="fichaObservacao"></span>
+
+            </div>
+
+
+
+            <!-- ASSINATURAS -->
+
+            <div class="assinatura">
+
+
+                <div class="linha-assinatura">
+
+                    Assinatura do Paciente
+
+                </div>
+
+
+                <div class="linha-assinatura">
+
+                    Assinatura do Responsável
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="rodape-ficha">
+
+                Documento gerado pelo sistema de atendimento.
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+    // ==========================================
+    // ELEMENTOS
+    // ==========================================
+
+    const form =
+        document.getElementById("formFicha");
+
+
+    const selectPaciente =
+        document.getElementById("paciente");
+
+
+    const ficha =
+        document.getElementById("ficha");
+
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+
+
+    // ==========================================
+    // DATA E HORA ATUAIS
+    // ==========================================
+
+    const agora =
+        new Date();
+
+
+    document.getElementById("data").value =
+        agora.toISOString()
+            .split("T")[0];
+
+
+    document.getElementById("hora").value =
+        agora.toTimeString()
+            .substring(0, 5);
+
+
+
+    // ==========================================
+    // GERAR NÚMERO DA FICHA
+    // ==========================================
+
+    function gerarNumeroFicha() {
+
+        const numero =
+            Math.floor(
+                100000 +
+                Math.random() * 900000
+            );
+
+
+        document.getElementById(
+            "senha"
+        ).value = numero;
+
+
+        document.getElementById(
+            "fichaNumero"
+        ).textContent = numero;
+
+    }
+
+
+
+    // ==========================================
+    // SELEÇÃO DO PACIENTE
+    // ==========================================
+
+    selectPaciente.addEventListener(
+        "change",
+        function() {
+
+            const opcao =
+                this.options[this.selectedIndex];
+
+
+            if (!opcao.value) {
+                return;
+            }
+
+
+            // Preenche automaticamente o convênio
+
+            const convenio =
+                opcao.dataset.convenio;
+
+
+            if (convenio) {
+
+                document.getElementById(
+                    "convenio"
+                ).value = convenio;
+
+            }
+
+        }
+    );
+
+
+
+    // ==========================================
+    // GERAR FICHA
+    // ==========================================
+
+    form.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            if (!selectPaciente.value) {
+
+                mostrarMensagem(
+                    "Selecione o paciente.",
+                    "erro"
+                );
+
+                return;
+            }
+
+
+            if (!document.getElementById(
+                "data"
+            ).value) {
+
+                mostrarMensagem(
+                    "Informe a data.",
+                    "erro"
+                );
+
+                return;
+            }
+
+
+            if (!document.getElementById(
+                "hora"
+            ).value) {
+
+                mostrarMensagem(
+                    "Informe o horário.",
+                    "erro"
+                );
+
+                return;
+            }
+
+
+            if (!document.getElementById(
+                "medico"
+            ).value) {
+
+                mostrarMensagem(
+                    "Selecione o médico.",
+                    "erro"
+                );
+
+                return;
+            }
+
+
+            if (!document.getElementById(
+                "tipoAtendimento"
+            ).value) {
+
+                mostrarMensagem(
+                    "Selecione o tipo de atendimento.",
+                    "erro"
+                );
+
+                return;
+            }
+
+
+            gerarNumeroFicha();
+
+
+            preencherFicha();
+
+
+            ficha.style.display = "block";
+
+
+            mostrarMensagem(
+                "Ficha gerada com sucesso!",
+                "sucesso"
+            );
+
+
+            ficha.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+
+
+    // ==========================================
+    // PREENCHER FICHA
+    // ==========================================
+
+    function preencherFicha() {
+
+        const opcao =
+            selectPaciente.options[
+                selectPaciente.selectedIndex
+            ];
+
+
+        document.getElementById(
+            "fichaPaciente"
+        ).textContent =
+            opcao.value;
+
+
+        document.getElementById(
+            "fichaCPF"
+        ).textContent =
+            opcao.dataset.cpf || "-";
+
+
+        document.getElementById(
+            "fichaNascimento"
+        ).textContent =
+            opcao.dataset.nascimento || "-";
+
+
+        document.getElementById(
+            "fichaCidade"
+        ).textContent =
+            opcao.dataset.cidade || "-";
+
+
+        document.getElementById(
+            "fichaConvenio"
+        ).textContent =
+            document.getElementById(
+                "convenio"
+            ).value || "Particular";
+
+
+        document.getElementById(
+            "fichaData"
+        ).textContent =
+            formatarData(
+                document.getElementById(
+                    "data"
+                ).value
+            );
+
+
+        document.getElementById(
+            "fichaMedico"
+        ).textContent =
+            document.getElementById(
+                "medico"
+            ).value;
+
+
+        document.getElementById(
+            "fichaHora"
+        ).textContent =
+            document.getElementById(
+                "hora"
+            ).value;
+
+
+        document.getElementById(
+            "fichaPrioridade"
+        ).textContent =
+            document.getElementById(
+                "prioridade"
+            ).value;
+
+
+        document.getElementById(
+            "fichaTipo"
+        ).textContent =
+            document.getElementById(
+                "tipoAtendimento"
+            ).value;
+
+
+        document.getElementById(
+            "fichaObservacao"
+        ).textContent =
+            document.getElementById(
+                "observacao"
+            ).value || "-";
+
+    }
+
+
+
+    // ==========================================
+    // IMPRIMIR
+    // ==========================================
+
+    function imprimirFicha() {
+
+        if (
+            ficha.style.display === "" ||
+            ficha.style.display === "none"
+        ) {
+
+            mostrarMensagem(
+                "Gere a ficha antes de imprimir.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        window.print();
+
+    }
+
+
+
+    // ==========================================
+    // LIMPAR
+    // ==========================================
+
+    function limparFormulario() {
+
+        form.reset();
+
+
+        ficha.style.display = "none";
+
+
+        const agora =
+            new Date();
+
+
+        document.getElementById("data").value =
+            agora.toISOString()
+                .split("T")[0];
+
+
+        document.getElementById("hora").value =
+            agora.toTimeString()
+                .substring(0, 5);
+
+
+        document.getElementById(
+            "senha"
+        ).value = "";
+
+    }
+
+
+
+    // ==========================================
+    // FORMATAR DATA
+    // ==========================================
+
+    function formatarData(data) {
+
+        if (!data) {
+            return "-";
+        }
+
+
+        const partes =
+            data.split("-");
+
+
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+
+    }
+
+
+
+    // ==========================================
+    // MENSAGEM
+    // ==========================================
+
+    function mostrarMensagem(
+        texto,
+        tipo
+    ) {
+
+        mensagem.textContent = texto;
+
+        mensagem.className = tipo;
+
+
+        setTimeout(function() {
+
+            mensagem.textContent = "";
+
+        }, 3000);
+
+    }
+
+
+
+    // Gera uma ficha inicial
+
+    gerarNumeroFicha();
+
+
+</script>
+
+</body>
+
+</html>

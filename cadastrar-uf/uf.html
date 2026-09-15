@@ -1,0 +1,1077 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de UF</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+
+        h2 {
+            margin-top: 35px;
+            color: #444;
+        }
+
+
+        .linha {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+
+        .btn-salvar {
+            background: #007bff;
+            color: white;
+        }
+
+
+        .btn-limpar {
+            background: #6c757d;
+            color: white;
+        }
+
+
+        .btn-editar {
+            background: #ffc107;
+            color: #212529;
+            padding: 6px 10px;
+            margin-right: 5px;
+        }
+
+
+        .btn-excluir {
+            background: #dc3545;
+            color: white;
+            padding: 6px 10px;
+        }
+
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+
+        .pesquisa {
+            margin-top: 20px;
+        }
+
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+
+        #mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+
+        .sucesso {
+            color: #198754;
+        }
+
+
+        .erro {
+            color: #dc3545;
+        }
+
+
+        .status-ativo {
+            color: #198754;
+            font-weight: bold;
+        }
+
+
+        .status-inativo {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .container {
+                padding: 20px;
+            }
+
+
+            .linha {
+                grid-template-columns: 1fr;
+            }
+
+
+            table {
+                font-size: 12px;
+            }
+
+
+            th,
+            td {
+                padding: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>Cadastro de UF</h1>
+
+
+    <form id="formUF">
+
+
+        <!-- SIGLA E NOME -->
+
+        <div class="linha">
+
+
+            <div class="form-group">
+
+                <label for="sigla">
+                    Sigla
+                </label>
+
+                <input
+                    type="text"
+                    id="sigla"
+                    placeholder="Ex.: SP"
+                    maxlength="2"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nome">
+                    Nome do Estado
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Ex.: São Paulo"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <!-- REGIÃO E IBGE -->
+
+        <div class="linha">
+
+
+            <div class="form-group">
+
+                <label for="regiao">
+                    Região
+                </label>
+
+                <select id="regiao">
+
+                    <option value="">
+                        Selecione a região
+                    </option>
+
+                    <option value="Norte">
+                        Norte
+                    </option>
+
+                    <option value="Nordeste">
+                        Nordeste
+                    </option>
+
+                    <option value="Centro-Oeste">
+                        Centro-Oeste
+                    </option>
+
+                    <option value="Sudeste">
+                        Sudeste
+                    </option>
+
+                    <option value="Sul">
+                        Sul
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="codigoIBGE">
+                    Código IBGE
+                </label>
+
+                <input
+                    type="text"
+                    id="codigoIBGE"
+                    placeholder="Ex.: 35"
+                    maxlength="2"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="form-group">
+
+            <label for="status">
+                Status
+            </label>
+
+            <select id="status">
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option value="Ativo">
+                    Ativo
+                </option>
+
+                <option value="Inativo">
+                    Inativo
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+
+        <div class="botoes">
+
+
+            <button
+                type="submit"
+                class="btn-salvar"
+                id="btnSalvar">
+
+                Salvar
+
+            </button>
+
+
+            <button
+                type="button"
+                class="btn-limpar"
+                onclick="limparFormulario()">
+
+                Limpar
+
+            </button>
+
+
+        </div>
+
+
+        <div id="mensagem"></div>
+
+
+    </form>
+
+
+    <!-- LISTAGEM -->
+
+    <h2>UFs Cadastradas</h2>
+
+
+    <div class="pesquisa">
+
+        <input
+            type="text"
+            id="pesquisa"
+            placeholder="Pesquisar por sigla, nome ou região..."
+            oninput="pesquisarUF()"
+        >
+
+    </div>
+
+
+    <table>
+
+
+        <thead>
+
+            <tr>
+
+                <th>Sigla</th>
+
+                <th>Estado</th>
+
+                <th>Região</th>
+
+                <th>IBGE</th>
+
+                <th>Status</th>
+
+                <th>Ações</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="listaUF"></tbody>
+
+
+    </table>
+
+
+</div>
+
+
+<script>
+
+
+    // ==========================================
+    // VARIÁVEIS
+    // ==========================================
+
+    const form =
+        document.getElementById("formUF");
+
+
+    const lista =
+        document.getElementById("listaUF");
+
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+
+    const pesquisa =
+        document.getElementById("pesquisa");
+
+
+    let ufs = [];
+
+
+    let indiceEdicao = -1;
+
+
+
+    // ==========================================
+    // SALVAR / ATUALIZAR
+    // ==========================================
+
+    form.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const sigla =
+                document
+                    .getElementById("sigla")
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+
+            const nome =
+                document
+                    .getElementById("nome")
+                    .value
+                    .trim();
+
+
+            const regiao =
+                document
+                    .getElementById("regiao")
+                    .value;
+
+
+            const codigoIBGE =
+                document
+                    .getElementById("codigoIBGE")
+                    .value
+                    .trim();
+
+
+            const status =
+                document
+                    .getElementById("status")
+                    .value;
+
+
+
+            // ==========================================
+            // VALIDAÇÕES
+            // ==========================================
+
+            if (sigla === "") {
+
+                mostrarMensagem(
+                    "Digite a sigla da UF.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (sigla.length !== 2) {
+
+                mostrarMensagem(
+                    "A sigla deve possuir 2 caracteres.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (!/^[A-Z]{2}$/.test(sigla)) {
+
+                mostrarMensagem(
+                    "A sigla deve conter apenas letras.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (nome === "") {
+
+                mostrarMensagem(
+                    "Digite o nome do estado.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (regiao === "") {
+
+                mostrarMensagem(
+                    "Selecione a região.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (codigoIBGE === "") {
+
+                mostrarMensagem(
+                    "Digite o código IBGE.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (!/^\d{2}$/.test(codigoIBGE)) {
+
+                mostrarMensagem(
+                    "O código IBGE deve possuir 2 números.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+            if (status === "") {
+
+                mostrarMensagem(
+                    "Selecione o status.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+
+            // ==========================================
+            // VERIFICAR DUPLICIDADE
+            // ==========================================
+
+            const siglaDuplicada =
+                ufs.some(function(uf, index) {
+
+                    return (
+                        uf.sigla === sigla &&
+                        index !== indiceEdicao
+                    );
+
+                });
+
+
+            if (siglaDuplicada) {
+
+                mostrarMensagem(
+                    "Já existe uma UF com esta sigla.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+
+            const ibgeDuplicado =
+                ufs.some(function(uf, index) {
+
+                    return (
+                        uf.codigoIBGE === codigoIBGE &&
+                        index !== indiceEdicao
+                    );
+
+                });
+
+
+            if (ibgeDuplicado) {
+
+                mostrarMensagem(
+                    "Já existe uma UF com este código IBGE.",
+                    "erro"
+                );
+
+                return;
+
+            }
+
+
+
+            // ==========================================
+            // OBJETO UF
+            // ==========================================
+
+            const uf = {
+
+                sigla: sigla,
+
+                nome: nome,
+
+                regiao: regiao,
+
+                codigoIBGE: codigoIBGE,
+
+                status: status
+
+            };
+
+
+
+            // ==========================================
+            // ATUALIZAR
+            // ==========================================
+
+            if (indiceEdicao >= 0) {
+
+                ufs[indiceEdicao] = uf;
+
+
+                indiceEdicao = -1;
+
+
+                document
+                    .getElementById("btnSalvar")
+                    .textContent = "Salvar";
+
+
+                mostrarMensagem(
+                    "UF atualizada com sucesso!",
+                    "sucesso"
+                );
+
+            }
+
+
+            // ==========================================
+            // NOVO CADASTRO
+            // ==========================================
+
+            else {
+
+                ufs.push(uf);
+
+
+                mostrarMensagem(
+                    "UF cadastrada com sucesso!",
+                    "sucesso"
+                );
+
+            }
+
+
+            atualizarTabela();
+
+
+            limparFormulario();
+
+        }
+    );
+
+
+
+    // ==========================================
+    // ATUALIZAR TABELA
+    // ==========================================
+
+    function atualizarTabela(
+        ufsExibir = ufs
+    ) {
+
+        lista.innerHTML = "";
+
+
+        ufsExibir.forEach(function(uf) {
+
+
+            const index =
+                ufs.indexOf(uf);
+
+
+            const linha =
+                document.createElement("tr");
+
+
+            const classeStatus =
+                uf.status === "Ativo"
+                    ? "status-ativo"
+                    : "status-inativo";
+
+
+            linha.innerHTML = `
+
+                <td>
+                    ${uf.sigla}
+                </td>
+
+                <td>
+                    ${uf.nome}
+                </td>
+
+                <td>
+                    ${uf.regiao}
+                </td>
+
+                <td>
+                    ${uf.codigoIBGE}
+                </td>
+
+                <td class="${classeStatus}">
+                    ${uf.status}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-editar"
+                        onclick="editarUF(${index})">
+
+                        Editar
+
+                    </button>
+
+
+                    <button
+                        class="btn-excluir"
+                        onclick="excluirUF(${index})">
+
+                        Excluir
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            lista.appendChild(linha);
+
+        });
+
+    }
+
+
+
+    // ==========================================
+    // EDITAR
+    // ==========================================
+
+    function editarUF(index) {
+
+        const uf =
+            ufs[index];
+
+
+        document
+            .getElementById("sigla")
+            .value = uf.sigla;
+
+
+        document
+            .getElementById("nome")
+            .value = uf.nome;
+
+
+        document
+            .getElementById("regiao")
+            .value = uf.regiao;
+
+
+        document
+            .getElementById("codigoIBGE")
+            .value = uf.codigoIBGE;
+
+
+        document
+            .getElementById("status")
+            .value = uf.status;
+
+
+        indiceEdicao = index;
+
+
+        document
+            .getElementById("btnSalvar")
+            .textContent = "Atualizar";
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+
+    // ==========================================
+    // EXCLUIR
+    // ==========================================
+
+    function excluirUF(index) {
+
+        const confirmacao =
+            confirm(
+                "Deseja realmente excluir esta UF?"
+            );
+
+
+        if (!confirmacao) {
+            return;
+        }
+
+
+        ufs.splice(index, 1);
+
+
+        atualizarTabela();
+
+
+        mostrarMensagem(
+            "UF excluída com sucesso.",
+            "sucesso"
+        );
+
+    }
+
+
+
+    // ==========================================
+    // LIMPAR
+    // ==========================================
+
+    function limparFormulario() {
+
+        document
+            .getElementById("sigla")
+            .value = "";
+
+
+        document
+            .getElementById("nome")
+            .value = "";
+
+
+        document
+            .getElementById("regiao")
+            .value = "";
+
+
+        document
+            .getElementById("codigoIBGE")
+            .value = "";
+
+
+        document
+            .getElementById("status")
+            .value = "";
+
+
+        indiceEdicao = -1;
+
+
+        document
+            .getElementById("btnSalvar")
+            .textContent = "Salvar";
+
+    }
+
+
+
+    // ==========================================
+    // PESQUISA
+    // ==========================================
+
+    function pesquisarUF() {
+
+        const texto =
+            pesquisa.value
+                .toLowerCase()
+                .trim();
+
+
+        const resultado =
+            ufs.filter(function(uf) {
+
+                return (
+
+                    uf.sigla
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    uf.nome
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    uf.regiao
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    uf.codigoIBGE
+                        .includes(texto)
+
+                );
+
+            });
+
+
+        atualizarTabela(resultado);
+
+    }
+
+
+
+    // ==========================================
+    // MÁSCARA / FORMATAÇÃO DA SIGLA
+    // ==========================================
+
+    document
+        .getElementById("sigla")
+        .addEventListener(
+            "input",
+            function(event) {
+
+                event.target.value =
+                    event.target.value
+                        .replace(/[^a-zA-Z]/g, "")
+                        .substring(0, 2)
+                        .toUpperCase();
+
+            }
+        );
+
+
+
+    // ==========================================
+    // CÓDIGO IBGE
+    // ==========================================
+
+    document
+        .getElementById("codigoIBGE")
+        .addEventListener(
+            "input",
+            function(event) {
+
+                event.target.value =
+                    event.target.value
+                        .replace(/\D/g, "")
+                        .substring(0, 2);
+
+            }
+        );
+
+
+
+    // ==========================================
+    // MENSAGEM
+    // ==========================================
+
+    function mostrarMensagem(
+        texto,
+        tipo
+    ) {
+
+        mensagem.textContent = texto;
+
+        mensagem.className = tipo;
+
+
+        setTimeout(function() {
+
+            mensagem.textContent = "";
+
+        }, 3000);
+
+    }
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emitir Resultado de Exames</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- CABEÇALHO -->
+
+        <div class="cabecalho">
+
+            <div class="logo">
+                🏥
+            </div>
+
+            <div>
+                <h1>Emitir Resultado de Exames</h1>
+                <p>Hospital Vida+</p>
+            </div>
+
+        </div>
+
+
+        <!-- PESQUISA -->
+
+        <div class="card pesquisa">
+
+            <h2>Pesquisar Resultado</h2>
+
+            <div class="linha">
+
+                <div class="campo">
+
+                    <label for="numeroResultado">
+                        Número do resultado
+                    </label>
+
+                    <input
+                        type="text"
+                        id="numeroResultado"
+                        placeholder="Ex: RES-001"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="paciente">
+                        Nome do paciente
+                    </label>
+
+                    <input
+                        type="text"
+                        id="paciente"
+                        placeholder="Digite o nome do paciente"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="botoes">
+
+                <button
+                    class="btn-pesquisar"
+                    onclick="pesquisarResultado()"
+                >
+                    🔎 Pesquisar
+                </button>
+
+
+                <button
+                    class="btn-limpar"
+                    onclick="limparPesquisa()"
+                >
+                    Limpar
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTADO -->
+
+        <div class="card resultado" id="resultado">
+
+            <div class="topo-resultado">
+
+                <div>
+
+                    <h2>RESULTADO DE EXAME</h2>
+
+                    <p id="numeroExibido">
+                        Nº do resultado
+                    </p>
+
+                </div>
+
+                <div class="hospital">
+                    🏥 Hospital Vida+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- DADOS DO PACIENTE -->
+
+            <h3>Dados do Paciente</h3>
+
+            <div class="dados">
+
+                <div>
+
+                    <strong>Paciente:</strong>
+
+                    <span id="nomeExibido">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>CPF:</strong>
+
+                    <span id="cpfExibido">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- DADOS DO EXAME -->
+
+            <h3>Dados do Exame</h3>
+
+            <div class="dados">
+
+                <div>
+
+                    <strong>Exame:</strong>
+
+                    <span id="exameExibido">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>Data:</strong>
+
+                    <span id="dataExibida">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>Médico responsável:</strong>
+
+                    <span id="medicoExibido">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>Status:</strong>
+
+                    <span id="statusExibido">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULTADO DO EXAME -->
+
+            <h3>Resultado</h3>
+
+            <div class="resultado-texto">
+
+                <p id="resultadoExibido">
+                    Nenhum resultado selecionado.
+                </p>
+
+            </div>
+
+
+            <!-- OBSERVAÇÕES -->
+
+            <h3>Observações</h3>
+
+            <div class="observacoes">
+
+                <p id="observacoesExibidas">
+                    -
+                </p>
+
+            </div>
+
+
+            <!-- ASSINATURA -->
+
+            <div class="assinatura">
+
+                <div class="linha-assinatura"></div>
+
+                <p>Médico responsável</p>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <div class="area-impressao">
+
+                <button
+                    class="btn-imprimir"
+                    onclick="imprimirResultado()"
+                >
+                    🖨️ Emitir Resultado
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+

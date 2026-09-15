@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Convênio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 35px;
+            color: #444;
+        }
+
+        .linha {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-salvar {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-limpar {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-excluir {
+            background: #dc3545;
+            color: white;
+            padding: 6px 10px;
+        }
+
+        .btn-editar {
+            background: #ffc107;
+            color: #212529;
+            padding: 6px 10px;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        #mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .sucesso {
+            color: #198754;
+        }
+
+        .erro {
+            color: #dc3545;
+        }
+
+        .status-ativo {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .status-inativo {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .linha {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Cadastro de Convênio</h1>
+
+    <form id="formConvenio">
+
+        <div class="linha">
+
+            <div class="form-group">
+                <label for="nome">Nome do Convênio</label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Ex.: Unimed"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="cnpj">CNPJ</label>
+
+                <input
+                    type="text"
+                    id="cnpj"
+                    placeholder="00.000.000/0000-00"
+                    maxlength="18"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="linha">
+
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+
+                <input
+                    type="text"
+                    id="telefone"
+                    placeholder="(00) 00000-0000"
+                    maxlength="15"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="contato@convenio.com.br"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="status">Status</label>
+
+            <select id="status">
+                <option value="">Selecione</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+            </select>
+
+        </div>
+
+
+        <div class="botoes">
+
+            <button
+                type="submit"
+                class="btn-salvar"
+                id="btnSalvar">
+                Salvar
+            </button>
+
+            <button
+                type="button"
+                class="btn-limpar"
+                onclick="limparFormulario()">
+                Limpar
+            </button>
+
+        </div>
+
+        <div id="mensagem"></div>
+
+    </form>
+
+
+    <h2>Convênios cadastrados</h2>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="listaConvenios"></tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+    const form = document.getElementById("formConvenio");
+
+    const lista = document.getElementById("listaConvenios");
+
+    const mensagem = document.getElementById("mensagem");
+
+    let convenios = [];
+
+    let indiceEdicao = -1;
+
+
+    // SALVAR / EDITAR
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const nome =
+            document.getElementById("nome").value.trim();
+
+        const cnpj =
+            document.getElementById("cnpj").value.trim();
+
+        const telefone =
+            document.getElementById("telefone").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const status =
+            document.getElementById("status").value;
+
+
+        // VALIDAÇÕES
+
+        if (nome === "") {
+
+            mostrarMensagem(
+                "Digite o nome do convênio.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (cnpj === "") {
+
+            mostrarMensagem(
+                "Digite o CNPJ.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (!validarCNPJ(cnpj)) {
+
+            mostrarMensagem(
+                "Digite um CNPJ válido.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (telefone === "") {
+
+            mostrarMensagem(
+                "Digite o telefone.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (email === "") {
+
+            mostrarMensagem(
+                "Digite o e-mail.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (status === "") {
+
+            mostrarMensagem(
+                "Selecione o status.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        const convenio = {
+
+            nome: nome,
+
+            cnpj: cnpj,
+
+            telefone: telefone,
+
+            email: email,
+
+            status: status
+        };
+
+
+        // EDITAR
+        if (indiceEdicao >= 0) {
+
+            convenios[indiceEdicao] = convenio;
+
+            indiceEdicao = -1;
+
+            document.getElementById("btnSalvar").textContent =
+                "Salvar";
+
+            mostrarMensagem(
+                "Convênio atualizado com sucesso!",
+                "sucesso"
+            );
+
+        }
+
+        // NOVO CADASTRO
+        else {
+
+            convenios.push(convenio);
+
+            mostrarMensagem(
+                "Convênio cadastrado com sucesso!",
+                "sucesso"
+            );
+        }
+
+
+        atualizarTabela();
+
+        limparFormulario();
+
+    });
+
+
+    // ATUALIZAR TABELA
+
+    function atualizarTabela() {
+
+        lista.innerHTML = "";
+
+
+        convenios.forEach(function(convenio, index) {
+
+            const linha = document.createElement("tr");
+
+
+            const classeStatus =
+                convenio.status === "Ativo"
+                    ? "status-ativo"
+                    : "status-inativo";
+
+
+            linha.innerHTML = `
+
+                <td>${convenio.nome}</td>
+
+                <td>${convenio.cnpj}</td>
+
+                <td>${convenio.telefone}</td>
+
+                <td>${convenio.email}</td>
+
+                <td class="${classeStatus}">
+                    ${convenio.status}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-editar"
+                        onclick="editarConvenio(${index})">
+                        Editar
+                    </button>
+
+                    <button
+                        class="btn-excluir"
+                        onclick="excluirConvenio(${index})">
+                        Excluir
+                    </button>
+
+                </td>
+
+            `;
+
+
+            lista.appendChild(linha);
+
+        });
+
+    }
+
+
+    // EDITAR
+
+    function editarConvenio(index) {
+
+        const convenio = convenios[index];
+
+
+        document.getElementById("nome").value =
+            convenio.nome;
+
+        document.getElementById("cnpj").value =
+            convenio.cnpj;
+
+        document.getElementById("telefone").value =
+            convenio.telefone;
+
+        document.getElementById("email").value =
+            convenio.email;
+
+        document.getElementById("status").value =
+            convenio.status;
+
+
+        indiceEdicao = index;
+
+
+        document.getElementById("btnSalvar").textContent =
+            "Atualizar";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    // EXCLUIR
+
+    function excluirConvenio(index) {
+
+        const confirmacao = confirm(
+            "Deseja realmente excluir este convênio?"
+        );
+
+
+        if (!confirmacao) {
+            return;
+        }
+
+
+        convenios.splice(index, 1);
+
+
+        atualizarTabela();
+
+
+        mostrarMensagem(
+            "Convênio excluído com sucesso.",
+            "sucesso"
+        );
+
+    }
+
+
+    // LIMPAR
+
+    function limparFormulario() {
+
+        document.getElementById("nome").value = "";
+
+        document.getElementById("cnpj").value = "";
+
+        document.getElementById("telefone").value = "";
+
+        document.getElementById("email").value = "";
+
+        document.getElementById("status").value = "";
+
+
+        indiceEdicao = -1;
+
+
+        document.getElementById("btnSalvar").textContent =
+            "Salvar";
+
+    }
+
+
+    // MENSAGEM
+
+    function mostrarMensagem(texto, tipo) {
+
+        mensagem.textContent = texto;
+
+        mensagem.className = tipo;
+
+
+        setTimeout(function() {
+
+            mensagem.textContent = "";
+
+        }, 3000);
+
+    }
+
+
+    // MÁSCARA CNPJ
+
+    document.getElementById("cnpj")
+        .addEventListener("input", function(event) {
+
+            let valor =
+                event.target.value.replace(/\D/g, "");
+
+
+            valor = valor.substring(0, 14);
+
+
+            if (valor.length > 12) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,
+                        "$1.$2.$3/$4-$5"
+                    );
+
+            }
+            else if (valor.length > 8) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{3})(\d{3})(\d{1,4}).*/,
+                        "$1.$2.$3/$4"
+                    );
+
+            }
+            else if (valor.length > 5) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{3})(\d{1,3}).*/,
+                        "$1.$2.$3"
+                    );
+
+            }
+            else if (valor.length > 2) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{1,3}).*/,
+                        "$1.$2"
+                    );
+
+            }
+
+
+            event.target.value = valor;
+
+        });
+
+
+    // MÁSCARA TELEFONE
+
+    document.getElementById("telefone")
+        .addEventListener("input", function(event) {
+
+            let valor =
+                event.target.value.replace(/\D/g, "");
+
+
+            valor = valor.substring(0, 11);
+
+
+            if (valor.length > 10) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{5})(\d{4}).*/,
+                        "($1) $2-$3"
+                    );
+
+            }
+            else if (valor.length > 6) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{4})(\d{1,4}).*/,
+                        "($1) $2-$3"
+                    );
+
+            }
+            else if (valor.length > 2) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{1,5}).*/,
+                        "($1) $2"
+                    );
+
+            }
+
+
+            event.target.value = valor;
+
+        });
+
+
+    // VALIDAÇÃO BÁSICA DE CNPJ
+
+    function validarCNPJ(cnpj) {
+
+        cnpj = cnpj.replace(/\D/g, "");
+
+
+        if (cnpj.length !== 14) {
+            return false;
+        }
+
+
+        // Impede números repetidos
+        if (/^(\d)\1+$/.test(cnpj)) {
+            return false;
+        }
+
+
+        let tamanho = cnpj.length - 2;
+
+        let numeros = cnpj.substring(0, tamanho);
+
+        let digitos = cnpj.substring(tamanho);
+
+        let soma = 0;
+
+        let pos = tamanho - 7;
+
+
+        for (let i = tamanho; i >= 1; i--) {
+
+            soma +=
+                parseInt(numeros.charAt(tamanho - i))
+                * pos--;
+
+            if (pos < 2) {
+                pos = 9;
+            }
+
+        }
+
+
+        let resultado =
+            soma % 11 < 2
+                ? 0
+                : 11 - (soma % 11);
+
+
+        if (resultado != digitos.charAt(0)) {
+            return false;
+        }
+
+
+        tamanho = tamanho + 1;
+
+        numeros = cnpj.substring(0, tamanho);
+
+        soma = 0;
+
+        pos = tamanho - 7;
+
+
+        for (let i = tamanho; i >= 1; i--) {
+
+            soma +=
+                parseInt(numeros.charAt(tamanho - i))
+                * pos--;
+
+            if (pos < 2) {
+                pos = 9;
+            }
+
+        }
+
+
+        resultado =
+            soma % 11 < 2
+                ? 0
+                : 11 - (soma % 11);
+
+
+        return resultado == digitos.charAt(1);
+
+    }
+
+</script>
+
+</body>
+</html>

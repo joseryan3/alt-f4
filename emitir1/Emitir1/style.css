@@ -1,0 +1,395 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #f3f8fa;
+
+    color: #263238;
+
+    min-height: 100vh;
+}
+
+
+/* CONTAINER */
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+
+    margin: 40px auto;
+}
+
+
+/* CABEÇALHO */
+
+.cabecalho {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+
+    background-color: #087f8c;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.cabecalho h1 {
+    color: #087f8c;
+
+    font-size: 29px;
+}
+
+.cabecalho p {
+    color: #78909c;
+
+    margin-top: 5px;
+}
+
+
+/* CARD */
+
+.card {
+    background-color: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #087f8c;
+
+    margin-bottom: 25px;
+}
+
+
+/* FORMULÁRIO */
+
+.linha {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+
+    color: #455a64;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #cfd8dc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: #087f8c;
+}
+
+
+/* BOTÕES */
+
+.botoes {
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 10px;
+}
+
+button {
+    border: none;
+
+    padding: 13px 20px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-pesquisar {
+    background-color: #087f8c;
+
+    color: white;
+}
+
+.btn-pesquisar:hover {
+    background-color: #05636d;
+}
+
+.btn-limpar {
+    background-color: #eceff1;
+
+    color: #455a64;
+}
+
+.btn-limpar:hover {
+    background-color: #cfd8dc;
+}
+
+.btn-imprimir {
+    background-color: #37474f;
+
+    color: white;
+}
+
+.btn-imprimir:hover {
+    background-color: #263238;
+}
+
+
+/* CABEÇALHO DO RELATÓRIO */
+
+.titulo-relatorio {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.titulo-relatorio h2 {
+    margin-bottom: 5px;
+}
+
+.titulo-relatorio p {
+    color: #78909c;
+}
+
+.hospital {
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #087f8c;
+}
+
+
+/* RESUMO */
+
+.resumo {
+    background-color: #e8f6f7;
+
+    border-radius: 8px;
+
+    padding: 18px;
+
+    margin-bottom: 20px;
+}
+
+.resumo strong {
+    display: block;
+
+    color: #087f8c;
+
+    font-size: 26px;
+}
+
+.resumo span {
+    color: #607d8b;
+}
+
+
+/* TABELA */
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 800px;
+}
+
+th {
+    background-color: #087f8c;
+
+    color: white;
+
+    padding: 13px;
+
+    text-align: left;
+}
+
+td {
+    padding: 13px;
+
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tr:hover {
+    background-color: #f5fafb;
+}
+
+
+/* STATUS */
+
+.status {
+    padding: 6px 10px;
+
+    border-radius: 15px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.concluido {
+    background-color: #e8f5e9;
+
+    color: #2e7d32;
+}
+
+.pendente {
+    background-color: #fff8e1;
+
+    color: #f57f17;
+}
+
+.analise {
+    background-color: #e3f2fd;
+
+    color: #1565c0;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .container {
+        width: 95%;
+
+        margin: 20px auto;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .linha {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .titulo-relatorio {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .cabecalho h1 {
+        font-size: 23px;
+    }
+
+}
+
+
+/* IMPRESSÃO */
+
+@media print {
+
+    body {
+        background-color: white;
+    }
+
+    .container {
+        width: 100%;
+
+        margin: 0;
+    }
+
+    .cabecalho,
+    .filtros {
+        display: none;
+    }
+
+    .card {
+        box-shadow: none;
+
+        margin: 0;
+
+        padding: 10px;
+    }
+
+    .hospital {
+        display: block;
+    }
+
+    table {
+        min-width: 100%;
+    }
+
+    th {
+        color: black;
+
+        background-color: #eeeeee;
+    }
+
+    .resumo {
+        border: 1px solid #ddd;
+    }
+
+}
+
