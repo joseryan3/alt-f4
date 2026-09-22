@@ -1,0 +1,1170 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Médico</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 35px;
+            color: #444;
+        }
+
+        .linha {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-salvar {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-limpar {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-editar {
+            background: #ffc107;
+            color: #212529;
+            padding: 6px 10px;
+            margin-right: 5px;
+        }
+
+        .btn-excluir {
+            background: #dc3545;
+            color: white;
+            padding: 6px 10px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .pesquisa {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        #mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .sucesso {
+            color: #198754;
+        }
+
+        .erro {
+            color: #dc3545;
+        }
+
+        .status-ativo {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .status-inativo {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .linha {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Cadastro de Médico</h1>
+
+
+    <form id="formMedico">
+
+
+        <!-- NOME E CRM -->
+
+        <div class="linha">
+
+            <div class="form-group">
+
+                <label for="nome">
+                    Nome do Médico
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Ex.: João da Silva"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="crm">
+                    CRM
+                </label>
+
+                <input
+                    type="text"
+                    id="crm"
+                    placeholder="Ex.: 123456"
+                    maxlength="10"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- ESPECIALIDADE E UF -->
+
+        <div class="linha">
+
+            <div class="form-group">
+
+                <label for="especialidade">
+                    Especialidade
+                </label>
+
+                <select id="especialidade">
+
+                    <option value="">
+                        Selecione a especialidade
+                    </option>
+
+                    <option value="Clínica Geral">
+                        Clínica Geral
+                    </option>
+
+                    <option value="Cardiologia">
+                        Cardiologia
+                    </option>
+
+                    <option value="Dermatologia">
+                        Dermatologia
+                    </option>
+
+                    <option value="Endocrinologia">
+                        Endocrinologia
+                    </option>
+
+                    <option value="Ginecologia">
+                        Ginecologia
+                    </option>
+
+                    <option value="Neurologia">
+                        Neurologia
+                    </option>
+
+                    <option value="Oftalmologia">
+                        Oftalmologia
+                    </option>
+
+                    <option value="Ortopedia">
+                        Ortopedia
+                    </option>
+
+                    <option value="Otorrinolaringologia">
+                        Otorrinolaringologia
+                    </option>
+
+                    <option value="Pediatria">
+                        Pediatria
+                    </option>
+
+                    <option value="Psiquiatria">
+                        Psiquiatria
+                    </option>
+
+                    <option value="Urologia">
+                        Urologia
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="uf">
+                    UF do CRM
+                </label>
+
+                <select id="uf">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- TELEFONE E EMAIL -->
+
+        <div class="linha">
+
+            <div class="form-group">
+
+                <label for="telefone">
+                    Telefone
+                </label>
+
+                <input
+                    type="text"
+                    id="telefone"
+                    placeholder="(00) 00000-0000"
+                    maxlength="15"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="medico@email.com"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- CIDADE E STATUS -->
+
+        <div class="linha">
+
+            <div class="form-group">
+
+                <label for="cidade">
+                    Cidade
+                </label>
+
+                <select id="cidade">
+
+                    <option value="">
+                        Selecione a cidade
+                    </option>
+
+                    <option value="São Paulo - SP">
+                        São Paulo - SP
+                    </option>
+
+                    <option value="Rio de Janeiro - RJ">
+                        Rio de Janeiro - RJ
+                    </option>
+
+                    <option value="Belo Horizonte - MG">
+                        Belo Horizonte - MG
+                    </option>
+
+                    <option value="Curitiba - PR">
+                        Curitiba - PR
+                    </option>
+
+                    <option value="Salvador - BA">
+                        Salvador - BA
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="Ativo">
+                        Ativo
+                    </option>
+
+                    <option value="Inativo">
+                        Inativo
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOTÕES -->
+
+        <div class="botoes">
+
+            <button
+                type="submit"
+                class="btn-salvar"
+                id="btnSalvar">
+
+                Salvar
+
+            </button>
+
+
+            <button
+                type="button"
+                class="btn-limpar"
+                onclick="limparFormulario()">
+
+                Limpar
+
+            </button>
+
+        </div>
+
+
+        <div id="mensagem"></div>
+
+    </form>
+
+
+    <!-- LISTAGEM -->
+
+    <h2>Médicos Cadastrados</h2>
+
+
+    <div class="pesquisa">
+
+        <input
+            type="text"
+            id="pesquisa"
+            placeholder="Pesquisar por nome, CRM ou especialidade..."
+            oninput="pesquisarMedicos()"
+        >
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Nome</th>
+
+                <th>CRM</th>
+
+                <th>Especialidade</th>
+
+                <th>Cidade</th>
+
+                <th>Telefone</th>
+
+                <th>Status</th>
+
+                <th>Ações</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="listaMedicos"></tbody>
+
+    </table>
+
+</div>
+
+
+<script>
+
+
+    // ==========================================
+    // VARIÁVEIS
+    // ==========================================
+
+    const form =
+        document.getElementById("formMedico");
+
+    const lista =
+        document.getElementById("listaMedicos");
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+    const pesquisa =
+        document.getElementById("pesquisa");
+
+
+    let medicos = [];
+
+    let indiceEdicao = -1;
+
+
+
+    // ==========================================
+    // SALVAR / ATUALIZAR
+    // ==========================================
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const nome =
+            document.getElementById("nome")
+                .value
+                .trim();
+
+
+        const crm =
+            document.getElementById("crm")
+                .value
+                .trim();
+
+
+        const especialidade =
+            document.getElementById("especialidade")
+                .value;
+
+
+        const uf =
+            document.getElementById("uf")
+                .value;
+
+
+        const telefone =
+            document.getElementById("telefone")
+                .value
+                .trim();
+
+
+        const email =
+            document.getElementById("email")
+                .value
+                .trim();
+
+
+        const cidade =
+            document.getElementById("cidade")
+                .value;
+
+
+        const status =
+            document.getElementById("status")
+                .value;
+
+
+
+        // ==========================================
+        // VALIDAÇÕES
+        // ==========================================
+
+        if (nome === "") {
+
+            mostrarMensagem(
+                "Digite o nome do médico.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (crm === "") {
+
+            mostrarMensagem(
+                "Digite o CRM.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (especialidade === "") {
+
+            mostrarMensagem(
+                "Selecione a especialidade.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (uf === "") {
+
+            mostrarMensagem(
+                "Selecione a UF do CRM.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (telefone === "") {
+
+            mostrarMensagem(
+                "Digite o telefone.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (email === "") {
+
+            mostrarMensagem(
+                "Digite o e-mail.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (cidade === "") {
+
+            mostrarMensagem(
+                "Selecione a cidade.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+        if (status === "") {
+
+            mostrarMensagem(
+                "Selecione o status.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+
+        // ==========================================
+        // VERIFICAR CRM DUPLICADO
+        // ==========================================
+
+        const crmDuplicado =
+            medicos.some(function(medico, index) {
+
+                return (
+                    medico.crm === crm &&
+                    medico.uf === uf &&
+                    index !== indiceEdicao
+                );
+
+            });
+
+
+        if (crmDuplicado) {
+
+            mostrarMensagem(
+                "Já existe um médico cadastrado com este CRM.",
+                "erro"
+            );
+
+            return;
+        }
+
+
+
+        // ==========================================
+        // OBJETO MÉDICO
+        // ==========================================
+
+        const medico = {
+
+            nome: nome,
+
+            crm: crm,
+
+            especialidade: especialidade,
+
+            uf: uf,
+
+            telefone: telefone,
+
+            email: email,
+
+            cidade: cidade,
+
+            status: status
+
+        };
+
+
+
+        // ==========================================
+        // EDITAR
+        // ==========================================
+
+        if (indiceEdicao >= 0) {
+
+            medicos[indiceEdicao] = medico;
+
+            indiceEdicao = -1;
+
+
+            document.getElementById(
+                "btnSalvar"
+            ).textContent = "Salvar";
+
+
+            mostrarMensagem(
+                "Médico atualizado com sucesso!",
+                "sucesso"
+            );
+
+        }
+
+
+        // ==========================================
+        // NOVO CADASTRO
+        // ==========================================
+
+        else {
+
+            medicos.push(medico);
+
+
+            mostrarMensagem(
+                "Médico cadastrado com sucesso!",
+                "sucesso"
+            );
+
+        }
+
+
+        atualizarTabela();
+
+        limparFormulario();
+
+    });
+
+
+
+    // ==========================================
+    // ATUALIZAR TABELA
+    // ==========================================
+
+    function atualizarTabela(
+        medicosExibir = medicos
+    ) {
+
+        lista.innerHTML = "";
+
+
+        medicosExibir.forEach(function(medico) {
+
+            const index =
+                medicos.indexOf(medico);
+
+
+            const linha =
+                document.createElement("tr");
+
+
+            const classeStatus =
+                medico.status === "Ativo"
+                    ? "status-ativo"
+                    : "status-inativo";
+
+
+            linha.innerHTML = `
+
+                <td>
+                    ${medico.nome}
+                </td>
+
+                <td>
+                    ${medico.crm}/${medico.uf}
+                </td>
+
+                <td>
+                    ${medico.especialidade}
+                </td>
+
+                <td>
+                    ${medico.cidade}
+                </td>
+
+                <td>
+                    ${medico.telefone}
+                </td>
+
+                <td class="${classeStatus}">
+                    ${medico.status}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-editar"
+                        onclick="editarMedico(${index})">
+
+                        Editar
+
+                    </button>
+
+
+                    <button
+                        class="btn-excluir"
+                        onclick="excluirMedico(${index})">
+
+                        Excluir
+
+                    </button>
+
+                </td>
+
+            `;
+
+
+            lista.appendChild(linha);
+
+        });
+
+    }
+
+
+
+    // ==========================================
+    // EDITAR MÉDICO
+    // ==========================================
+
+    function editarMedico(index) {
+
+        const medico =
+            medicos[index];
+
+
+        document.getElementById("nome").value =
+            medico.nome;
+
+
+        document.getElementById("crm").value =
+            medico.crm;
+
+
+        document.getElementById("especialidade").value =
+            medico.especialidade;
+
+
+        document.getElementById("uf").value =
+            medico.uf;
+
+
+        document.getElementById("telefone").value =
+            medico.telefone;
+
+
+        document.getElementById("email").value =
+            medico.email;
+
+
+        document.getElementById("cidade").value =
+            medico.cidade;
+
+
+        document.getElementById("status").value =
+            medico.status;
+
+
+        indiceEdicao = index;
+
+
+        document.getElementById(
+            "btnSalvar"
+        ).textContent = "Atualizar";
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+
+    // ==========================================
+    // EXCLUIR MÉDICO
+    // ==========================================
+
+    function excluirMedico(index) {
+
+        const confirmacao =
+            confirm(
+                "Deseja realmente excluir este médico?"
+            );
+
+
+        if (!confirmacao) {
+            return;
+        }
+
+
+        medicos.splice(index, 1);
+
+
+        atualizarTabela();
+
+
+        mostrarMensagem(
+            "Médico excluído com sucesso.",
+            "sucesso"
+        );
+
+    }
+
+
+
+    // ==========================================
+    // LIMPAR FORMULÁRIO
+    // ==========================================
+
+    function limparFormulario() {
+
+        document.getElementById("nome").value = "";
+
+        document.getElementById("crm").value = "";
+
+        document.getElementById("especialidade").value = "";
+
+        document.getElementById("uf").value = "";
+
+        document.getElementById("telefone").value = "";
+
+        document.getElementById("email").value = "";
+
+        document.getElementById("cidade").value = "";
+
+        document.getElementById("status").value = "";
+
+
+        indiceEdicao = -1;
+
+
+        document.getElementById(
+            "btnSalvar"
+        ).textContent = "Salvar";
+
+    }
+
+
+
+    // ==========================================
+    // PESQUISAR MÉDICOS
+    // ==========================================
+
+    function pesquisarMedicos() {
+
+        const texto =
+            pesquisa.value
+                .toLowerCase()
+                .trim();
+
+
+        const resultado =
+            medicos.filter(function(medico) {
+
+                return (
+
+                    medico.nome
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    medico.crm
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    medico.especialidade
+                        .toLowerCase()
+                        .includes(texto)
+
+                    ||
+
+                    medico.cidade
+                        .toLowerCase()
+                        .includes(texto)
+
+                );
+
+            });
+
+
+        atualizarTabela(resultado);
+
+    }
+
+
+
+    // ==========================================
+    // MÁSCARA TELEFONE
+    // ==========================================
+
+    document
+        .getElementById("telefone")
+        .addEventListener("input", function(event) {
+
+            let valor =
+                event.target.value
+                    .replace(/\D/g, "");
+
+
+            valor =
+                valor.substring(0, 11);
+
+
+            if (valor.length > 10) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{5})(\d{4}).*/,
+                        "($1) $2-$3"
+                    );
+
+            }
+
+            else if (valor.length > 6) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{4})(\d{1,4}).*/,
+                        "($1) $2-$3"
+                    );
+
+            }
+
+            else if (valor.length > 2) {
+
+                valor =
+                    valor.replace(
+                        /^(\d{2})(\d{1,5}).*/,
+                        "($1) $2"
+                    );
+
+            }
+
+
+            event.target.value = valor;
+
+        });
+
+
+
+    // ==========================================
+    // MÁSCARA CRM
+    // ==========================================
+
+    document
+        .getElementById("crm")
+        .addEventListener("input", function(event) {
+
+            event.target.value =
+                event.target.value
+                    .replace(/\D/g, "")
+                    .substring(0, 10);
+
+        });
+
+
+
+    // ==========================================
+    // MENSAGEM
+    // ==========================================
+
+    function mostrarMensagem(texto, tipo) {
+
+        mensagem.textContent = texto;
+
+        mensagem.className = tipo;
+
+
+        setTimeout(function() {
+
+            mensagem.textContent = "";
+
+        }, 3000);
+
+    }
+
+</script>
+
+</body>
+
+</html>
